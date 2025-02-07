@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 /**
@@ -288,10 +287,10 @@ public class SandboxListas
      */
     public void generarEnteros( int cantidad, int minimo, int maximo )
     {
-    	Random random = new Random();
-        listaEnteros.clear();
+    	listaEnteros.clear();
         for (int i = 0; i < cantidad; i++) {
-            listaEnteros.add(random.nextInt(maximo - minimo + 1) + minimo);
+             int numeroAleatorio = (int) (Math.random() * (maximo - minimo + 1)) + minimo;
+             listaEnteros.add(numeroAleatorio);
         }
     }
 }

@@ -2,7 +2,6 @@ package uniandes.dpoo.estructuras.logica;
 import java.util.Arrays; 
 
 import java.util.HashMap;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -127,14 +126,20 @@ public class SandboxArreglos
      * @param posicion La posición donde debe quedar el nuevo valor en el arreglo aumentado. Si la posición es menor a 0, se inserta el valor en la primera posición. Si la
      *        posición es mayor que el tamaño del arreglo, se inserta el valor en la última posición.
      */
-    public void insertarEntero( int entero, int posicion )
-    {
-    	posicion = Math.max(0, Math.min(posicion, arregloEnteros.length));
-        int[] nuevoArreglo = new int[arregloEnteros.length + 1];
-        System.arraycopy(arregloEnteros, 0, nuevoArreglo, 0, posicion);
-        nuevoArreglo[posicion] = entero;
-        System.arraycopy(arregloEnteros, posicion, nuevoArreglo, posicion + 1, arregloEnteros.length - posicion);
-        arregloEnteros = nuevoArreglo;
+    public void insertarEntero(int entero, int posicion) {
+        if (posicion < 0) {
+            posicion = 0;
+        } else if (posicion > arregloEnteros.length) {
+            posicion = arregloEnteros.length;
+        }
+
+        arregloEnteros = Arrays.copyOf(arregloEnteros, arregloEnteros.length + 1);
+        
+        for (int i = arregloEnteros.length - 1; i > posicion; i--) {
+            arregloEnteros[i] = arregloEnteros[i - 1];
+        }
+        
+        arregloEnteros[posicion] = entero;
     }
 
     /**
@@ -324,10 +329,10 @@ public class SandboxArreglos
      * @param minimo El valor mínimo para los números generados
      * @param maximo El valor máximo para los números generados
      */
-    public void generarEnteros( int cantidad, int minimo, int maximo )
-    {
-    	Random rand = new Random();
-        arregloEnteros = rand.ints(cantidad, minimo, maximo + 1).toArray();
+    public void generarEnteros(int cantidad, int minimo, int maximo) {
+        arregloEnteros = new int[cantidad];
+        for (int i = 0; i < cantidad; i++) {
+            arregloEnteros[i] = (int) (Math.random() * (maximo - minimo + 1)) + minimo;
+        }
     }
-
 }
