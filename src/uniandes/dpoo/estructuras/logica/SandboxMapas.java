@@ -36,7 +36,7 @@ public class SandboxMapas
      */
     public SandboxMapas( )
     {
-        mapaCadenas = new HashMap<String, String>( );
+        mapaCadenas = new HashMap<>( );
     }
 
     /**
@@ -135,7 +135,7 @@ public class SandboxMapas
      */
     public void eliminarCadenaConValor( String valor )
     {
-    	mapaCadenas.entrySet().removeIf(entry -> entry.getValue().equals(valor));
+        mapaCadenas.values().removeIf(v -> v.equals(valor));
     }
 
     /**
